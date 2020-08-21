@@ -1,0 +1,414 @@
+<div style="height: 500px; overflow: scroll;">
+  <h4>View Component</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="h1" style="font-size: 16px; font-weight: 700;">Sl NO</th>
+        <th class="h2" style="font-size: 16px; font-weight: 700;">Name</th>
+        <th class="h3" style="font-size: 16px; font-weight: 700;">Address</th>
+        <th class="h4" style="font-size: 16px; font-weight: 700;">City</th>
+        <th class="h5" style="font-size: 16px; font-weight: 700;">Package</th>
+        <th class="h6" style="font-size: 16px; font-weight: 700;">Trainer Preference</th>
+        <th class="h7" style="font-size: 16px; font-weight: 700;">Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <th>{{ user.id }}</th>
+        <td>{{ user.firstname + " " + user.lastname }}</td>
+        <td>{{ user.streetaddress }}</td>
+        <td>{{ user.city }}</td>
+        <td>{{ user.packages }}</td>
+        <td>{{ user.trainerpreference }}</td>
+        <td>{{ user.phonenumber }}</td>
+        <td>
+          <button
+            data-toggle="modal"
+            data-target="#editModal"
+            class="btn btn-transparent text-primary"
+            (click)="loadEditModel(user.id)"
+          >
+            Edit
+          </button>
+        </td>
+        <td>
+          <button
+            data-toggle="modal"
+            data-target="#deleteModal"
+            class="btn btn-transparent text-danger"
+            (click)="confirmDelete(user.id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Delete Modal -->
+<div
+  class="modal fade"
+  id="deleteModal"
+  tabindex="-1"
+  aria-labelledby="deleteModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">
+          This action will delete the record permanently. Are you sure ?
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          (click)="delete()"
+          data-dismiss="modal"
+          class="btn btn-danger"
+        >
+          Yes, I am sure.
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div
+  class="modal fade"
+  id="editModal"
+  tabindex="-1"
+  aria-labelledby="editModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Appointment</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="fitnessForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="col form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="First name"
+                formControlName="firstname"
+                [ngClass]="{
+                  'is-valid': fitnessForm.get('firstname').valid,
+                  'is-invalid':
+                    this.fitnessForm.get('firstname').touched &&
+                    !fitnessForm.get('firstname').valid
+                }"
+              />
+              <div class="invalid-feedback">
+                Invalid Input
+              </div>
+            </div>
+            <div class="col form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Last name"
+                formControlName="lastname"
+                [ngClass]="{
+                  'is-valid': fitnessForm.get('lastname').valid,
+                  'is-invalid':
+                    this.fitnessForm.get('lastname').touched &&
+                    !fitnessForm.get('lastname').valid
+                }"
+              />
+              <div class="invalid-feedback">
+                Invalid Input
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Age"
+                formControlName="age"
+                [ngClass]="{
+                  'is-valid': fitnessForm.get('age').valid,
+                  'is-invalid':
+                    this.fitnessForm.get('age').touched &&
+                    !fitnessForm.get('age').valid
+                }"
+              />
+              <div class="invalid-feedback">
+                Invalid Input
+              </div>
+            </div>
+            <div class="col form-group">
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Phone"
+                formControlName="phonenumber"
+                [ngClass]="{
+                  'is-valid': fitnessForm.get('phonenumber').valid,
+                  'is-invalid':
+                    this.fitnessForm.get('phonenumber').touched &&
+                    !fitnessForm.get('phonenumber').valid
+                }"
+              />
+              <div class="invalid-feedback">
+                Invalid Input
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Email"
+                formControlName="email"
+                [ngClass]="{
+                  'is-valid': fitnessForm.get('email').valid,
+                  'is-invalid':
+                    this.fitnessForm.get('email').touched &&
+                    !fitnessForm.get('email').valid
+                }"
+              />
+              <div class="invalid-feedback">
+                Invalid Input
+              </div>
+            </div>
+          </div>
+          <fieldset>
+            <label>Address:</label>
+            <div class="form-row">
+              <div class="col form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Street Address"
+                  formControlName="streetaddress"
+                  [ngClass]="{
+                    'is-valid': fitnessForm.get('streetaddress').valid,
+                    'is-invalid':
+                      this.fitnessForm.get('streetaddress').touched &&
+                      !fitnessForm.get('streetaddress').valid
+                  }"
+                />
+                <div class="invalid-feedback">
+                  Invalid Input
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="City"
+                  formControlName="city"
+                  [ngClass]="{
+                    'is-valid': fitnessForm.get('city').valid,
+                    'is-invalid':
+                      this.fitnessForm.get('city').touched &&
+                      !fitnessForm.get('city').valid
+                  }"
+                />
+                <div class="invalid-feedback">
+                  Invalid Input
+                </div>
+              </div>
+              <div class="col form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="State"
+                  formControlName="state"
+                  [ngClass]="{
+                    'is-valid': fitnessForm.get('state').valid,
+                    'is-invalid':
+                      this.fitnessForm.get('state').touched &&
+                      !fitnessForm.get('state').valid
+                  }"
+                />
+                <div class="invalid-feedback">
+                  Invalid Input
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Country"
+                  formControlName="country"
+                  [ngClass]="{
+                    'is-valid': fitnessForm.get('country').valid,
+                    'is-invalid':
+                      this.fitnessForm.get('country').touched &&
+                      !fitnessForm.get('country').valid
+                  }"
+                />
+                <div class="invalid-feedback">
+                  Invalid Input
+                </div>
+              </div>
+              <div class="col form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Pincode"
+                  formControlName="pincode"
+                  [ngClass]="{
+                    'is-valid': fitnessForm.get('pincode').valid,
+                    'is-invalid':
+                      this.fitnessForm.get('pincode').touched &&
+                      !fitnessForm.get('pincode').valid
+                  }"
+                />
+                <div class="invalid-feedback">
+                  Invalid Input
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-row">
+            <div class="col form-group">
+              <label for="exampleFormControlSelect1">Trainer Preference</label>
+              <select
+                class="form-control"
+                formControlName="trainerpreference"
+                [ngClass]="{
+                  'is-valid': fitnessForm.get('trainerpreference').valid,
+                  'is-invalid':
+                    this.fitnessForm.get('trainerpreference').touched &&
+                    !fitnessForm.get('trainerpreference').valid
+                }"
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="any">Any</option>
+              </select>
+              <div class="invalid-feedback">
+                Invalid Input
+              </div>
+            </div>
+            <div class="col form-group">
+              <label for="exampleFormControlSelect1">Physiotherepist</label>
+              <select
+                class="form-control"
+                formControlName="physiotherapist"
+                [ngClass]="{
+                  'is-valid': fitnessForm.get('physiotherapist').valid,
+                  'is-invalid':
+                    this.fitnessForm.get('physiotherapist').touched &&
+                    !fitnessForm.get('physiotherapist').valid
+                }"
+              >
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+              <div class="invalid-feedback">
+                Invalid Input
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <label for="exampleFormControlSelect1">Package</label>
+              <select
+                class="form-control"
+                formControlName="packages"
+                [ngClass]="{
+                  'is-valid': fitnessForm.get('packages').valid,
+                  'is-invalid':
+                    this.fitnessForm.get('packages').touched &&
+                    !fitnessForm.get('packages').valid
+                }"
+              >
+                <option value="100">Default (100)</option>
+                <option value="200">Delux (200)</option>
+                <option value="500">Super Delux (500)</option>
+              </select>
+              <div class="invalid-feedback">
+                Invalid Input
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <input
+                type="number"
+                class="form-control"
+                placeholder="INR"
+                formControlName="inr"
+                [ngClass]="{
+                  'is-valid': fitnessForm.get('inr').valid,
+                  'is-invalid':
+                    this.fitnessForm.get('inr').touched &&
+                    !fitnessForm.get('inr').valid
+                }"
+              />
+              <div class="invalid-feedback">
+                Invalid Input
+              </div>
+            </div>
+            <div class="col form-group">
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Paise"
+                formControlName="paisa"
+                [ngClass]="{
+                  'is-valid': fitnessForm.get('paisa').valid,
+                  'is-invalid':
+                    this.fitnessForm.get('paisa').touched &&
+                    !fitnessForm.get('paisa').valid
+                }"
+              />
+              <div class="invalid-feedback">
+                Invalid Input
+              </div>
+            </div>
+          </div>
+          <button
+            class="btn btn-secondary m-2"
+            type="button"
+            data-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!fitnessForm.valid"
+          >
+            Save Changes
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

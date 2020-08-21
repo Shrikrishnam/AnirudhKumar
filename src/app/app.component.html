@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <div class="row p-0">
+    <div class="col-12 p-0">
+      <nav class="navbar navbar-light bg-light p-3">
+        <img src="https://img.icons8.com/officel/80/000000/sports-mode.png" />
+        <span class="font-weight-bold font-italic" style="font-size: 24px;"
+          >Fitness App</span
+        >
+      </nav>
+    </div>
+  </div>
+  <div class="row p-0">
+    <div class="col-12 mb-4 p-0">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" (click)="landingpage()">Home</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" (click)="placeAppointment()"
+                >Place Appointment</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="viewAppointment()"
+                >View Appointment</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="contactUspage()">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 col-lg-3 d-none d-md-block">
+      <ul class="nav flex-column bg-dark" style="height: 70vh;">
+        <li class="nav-item">
+          <a class="nav-link text-white" (click)="landingpage()">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" (click)="placeAppointment()"
+            >Place Appointment</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" (click)="viewAppointment()"
+            >View Appointment</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" (click)="contactUspage()"
+            >Contact Us</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="col-12 col-lg-9 col-sm-12 py-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12"></div>
+  </div>
+</div>
